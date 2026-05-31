@@ -1,26 +1,85 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap');
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Plus Jakarta Sans", "Inter", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-light: var(--primary-light);
+
+  --color-bg-app: var(--bg-app);
+  --color-bg-card: var(--bg-card);
+  --color-sidebar-light: var(--sidebar-light);
+  --color-sidebar-dark: var(--sidebar-dark);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-border-divider: var(--border-divider);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --bg-app: #FFFFFF;
+    --bg-card: #FFFFFF;
+    --text-primary: #3A3541;
+    --text-secondary: #6F6B7D;
+    --border-divider: #ECEAF2;
+    --sidebar-light: #FFFFFF;
+    --sidebar-dark: #28243D;
+    --primary: #8b5cf6;
+    --primary-hover: #7b4cf5;
+    --primary-light: rgba(139, 92, 246, 0.1);
+  }
+
+  .dark {
+    --bg-app: #28243D;
+    --bg-card: #28243D;
+    --text-primary: #E7E3FC;
+    --text-secondary: #C8C3E3;
+    --border-divider: #514B6B;
+    --sidebar-light: #FFFFFF;
+    --sidebar-dark: #28243D;
+    --primary: #8b5cf6;
+    --primary-hover: #a78bfa;
+    --primary-light: rgba(139, 92, 246, 0.2);
+  }
+
+  html,
+  body {
+    background-color: var(--bg-app);
+  }
+
+  body {
+    color: var(--text-primary);
+    font-family: var(--font-sans);
+    overflow-x: hidden;
+    transition: background-color 0.2s ease, color 0.2s ease;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Custom Styled Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #DBDADE;
+  border-radius: 4px;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #474360;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #A5A3AE;
 }
