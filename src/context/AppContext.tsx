@@ -31,6 +31,11 @@ export function useApp() {
   const setSelectedInvoiceId = (val: string) => dispatch(actions.setSelectedInvoiceId(val));
   const setSelectedCustomerId = (val: string) => dispatch(actions.setSelectedCustomerId(val));
   const setActivePage = (val: PageId) => dispatch(actions.setActivePage(val));
+  const setRoles = (roles: any) => dispatch(actions.setRoles(roles));
+  const setPermissions = (perms: any) => dispatch(actions.setPermissions(perms));
+  const setEmails = (emails: any) => dispatch(actions.setEmails(emails));
+  const setChatContacts = (contacts: any) => dispatch(actions.setChatContacts(contacts));
+  const setChatConversations = (conversations: any) => dispatch(actions.setChatConversations(conversations));
 
   // Authentication helpers
   const login = (email: string, password: string) => {
@@ -120,6 +125,11 @@ export function useApp() {
     setActivePage,
     setDarkMode,
     setSidebarOpen,
+    setRoles,
+    setPermissions,
+    setEmails,
+    setChatContacts,
+    setChatConversations,
     login,
     logout,
     triggerToast,

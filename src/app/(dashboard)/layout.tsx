@@ -32,7 +32,8 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       'dashboard', 'products-list', 'add-product', 'category-list',
       'orders-list', 'order-details', 'customers-list', 'customer-details',
       'manage-reviews', 'referrals', 'settings', 'invoice-list',
-      'invoice-preview', 'invoice-edit', 'invoice-add', 'user-list', 'user-view'
+      'invoice-preview', 'invoice-edit', 'invoice-add', 'user-list', 'user-view',
+      'roles-list', 'permissions-list', 'email', 'chat'
     ];
     if (path && validPages.includes(path)) {
       if (path !== activePage) setActivePage(path);

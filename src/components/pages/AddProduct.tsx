@@ -1,4 +1,10 @@
 import React, { useState, useRef, useEffect } from "react";
+import dynamic from "next/dynamic";
+
+const RichTextEditor = dynamic(
+  () => import("@/components/ui/RichTextEditor"),
+  { ssr: false, loading: () => <div className="border border-border-divider rounded-xl h-[206px] bg-bg-card animate-pulse" /> }
+);
 import { PageId, ProductItem } from "@/types";
 import { useApp } from "@/context/AppContext";
 import {
@@ -412,44 +418,17 @@ export default function AddProduct({ setActivePage }: AddProductProps) {
                 </div>
               </div>
 
-              {/* Rich editing layout simulation toolbar (screenshot 5) */}
+              {/* Rich Text Editor — powered by Tiptap */}
               <div className="space-y-2 pt-2">
                 <label className="text-[11px] font-bold text-text-secondary uppercase tracking-wider block select-none">
                   Description (Optional)
                 </label>
-                <div className="border border-border-divider rounded-xl overflow-hidden focus-within:border-primary transition-all">
-                  {/* SIMULATED RICHTEXT TOOLBAR */}
-                  <div className="bg-gray-50/75 dark:bg-zinc-800/20 border-b border-border-divider px-3 py-2 flex flex-wrap items-center gap-1.5 select-none">
-                    {["B", "I", "U", "S"].map((fmt) => (
-                      <button
-                        type="button"
-                        key={fmt}
-                        onClick={() => triggerToast(`Rich typography format option "${fmt}" selected`, "blank")}
-                        className="p-1 px-2 text-xs font-black text-text-secondary hover:text-text-primary hover:bg-bg-card rounded-md transition-all cursor-pointer"
-                      >
-                        {fmt}
-                      </button>
-                    ))}
-                    <div className="w-[1px] h-4 bg-border-divider py-0 rounded mx-1" />
-                    {["Left", "Center", "Right"].map((alignment) => (
-                      <button
-                        type="button"
-                        key={alignment}
-                        onClick={() => triggerToast(`Alignment aligned to ${alignment}`, "blank")}
-                        className="p-1 px-1.5 text-[10px] font-bold text-text-secondary hover:text-text-primary hover:bg-bg-card rounded-md transition-all cursor-pointer"
-                      >
-                        {alignment}
-                      </button>
-                    ))}
-                  </div>
-                  <textarea
-                    rows={4}
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
-                    placeholder="Keep your product account secure with detailed specs and documentation description."
-                    className="w-full p-4 bg-bg-card text-xs font-semibold text-text-primary outline-none resize-none placeholder:text-text-secondary leading-relaxed"
-                  ></textarea>
-                </div>
+                <RichTextEditor
+                  value={description}
+                  onChange={(html) => setDescription(html)}
+                  placeholder="Keep your product account secure with detailed specs and documentation description."
+                  maxLength={2000}
+                />
               </div>
             </div>
           </div>

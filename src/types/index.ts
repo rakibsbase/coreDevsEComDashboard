@@ -15,7 +15,103 @@ export type PageId =
   | "invoice-edit"
   | "invoice-add"
   | "user-list"
-  | "user-view";
+  | "user-view"
+  | "roles-list"
+  | "permissions-list"
+  | "email"
+  | "chat";
+
+// ─── Roles & Permissions ──────────────────────────────────────────────────────
+
+export type PermissionKey =
+  | "User Management"
+  | "Content Management"
+  | "Disputes Management"
+  | "Database Management"
+  | "Financial Management"
+  | "Reporting"
+  | "API Control"
+  | "Repository Management"
+  | "Payroll";
+
+export interface RolePermission {
+  key: PermissionKey;
+  read: boolean;
+  write: boolean;
+  create: boolean;
+}
+
+export interface RoleItem {
+  id: string;
+  name: string;
+  userCount: number;
+  userAvatars: string[]; // up to 4 avatar URLs (rest shown as +N)
+  permissions: RolePermission[];
+  createdAt: string;
+}
+
+export interface PermissionItem {
+  id: string;
+  name: string;
+  assignedTo: string[]; // role names, e.g. ["Administrator", "Manager"]
+  createdAt: string; // e.g. "14 Apr 2021, 8:43 PM"
+}
+
+// ─── Chat ─────────────────────────────────────────────────────────────────────
+
+export interface ChatContact {
+  id: string;
+  name: string;
+  role: string;
+  avatar: string;
+  status: "online" | "offline" | "away" | "busy";
+}
+
+export interface ChatMessage {
+  id: string;
+  senderId: string; // 'me' for current user, or contact id
+  text: string;
+  time: string;
+  isRead?: boolean;
+}
+
+export interface ChatConversation {
+  contactId: string;
+  messages: ChatMessage[];
+  unreadCount: number;
+  lastMessageDate: string;
+}
+
+// ─── Email ────────────────────────────────────────────────────────────────────
+
+export type EmailFolder = "inbox" | "sent" | "draft" | "starred" | "spam" | "trash";
+export type EmailLabel = "personal" | "company" | "important" | "private";
+
+export interface EmailMessage {
+  id: string;
+  from: {
+    name: string;
+    email: string;
+    avatar: string;
+  };
+  to: {
+    name: string;
+    email: string;
+  }[];
+  subject: string;
+  body: string;
+  snippet: string;
+  date: string; // ISO or formatted
+  folder: EmailFolder;
+  labels: EmailLabel[];
+  isRead: boolean;
+  isStarred: boolean;
+  attachments?: {
+    name: string;
+    size: string;
+    type: string;
+  }[];
+}
 
 export interface Transaction {
   id: string;

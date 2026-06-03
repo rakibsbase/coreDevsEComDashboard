@@ -12,6 +12,9 @@ import {
   LogOut,
   X,
   Circle,
+  Lock,
+  Mail,
+  MessageSquare,
 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { useApp } from "@/context/AppContext";
@@ -36,6 +39,7 @@ export default function Sidebar({
   const [ecommerceOpen, setEcommerceOpen] = useState(true);
   const [invoiceOpen, setInvoiceOpen] = useState(false);
   const [userOpen, setUserOpen] = useState(false);
+  const [rolesOpen, setRolesOpen] = useState(false);
 
   // Nested eCommerce sub-accordion lists
   const [productsOpen, setProductsOpen] = useState(false);
@@ -81,6 +85,9 @@ export default function Sidebar({
     }
     if (["user-list", "user-view"].includes(activePage)) {
       setUserOpen(true);
+    }
+    if (["roles-list", "permissions-list"].includes(activePage)) {
+      setRolesOpen(true);
     }
   }, [activePage]);
 
@@ -449,6 +456,54 @@ export default function Sidebar({
             </AnimatePresence>
           </div>
 
+          {/* SINGLE LINK: EMAIL */}
+          <div className="space-y-0.5">
+            <button
+              onClick={() => setActivePage("email")}
+              className={`flex items-center w-auto h-10 px-4 my-1 mx-3 text-xs font-bold rounded-lg transition-all duration-200 cursor-pointer select-none ${
+                activePage === "email"
+                  ? "bg-[#6D28D9] dark:bg-primary text-white shadow-sm shadow-primary/20"
+                  : "text-[#2F2B3D] hover:text-[#6D28D9] hover:bg-primary-light dark:text-[#C9C4DE] dark:hover:text-white dark:hover:bg-white/10"
+              }`}
+            >
+              <div className="flex items-center gap-3">
+                <Mail
+                  size={15}
+                  className={`${
+                    activePage === "email"
+                      ? "text-white"
+                      : "text-[#4B465C] dark:text-current dark:opacity-70"
+                  } shrink-0`}
+                />
+                <span>Email</span>
+              </div>
+            </button>
+          </div>
+
+          {/* SINGLE LINK: CHAT */}
+          <div className="space-y-0.5">
+            <button
+              onClick={() => setActivePage("chat")}
+              className={`flex items-center w-auto h-10 px-4 my-1 mx-3 text-xs font-bold rounded-lg transition-all duration-200 cursor-pointer select-none ${
+                activePage === "chat"
+                  ? "bg-[#6D28D9] dark:bg-primary text-white shadow-sm shadow-primary/20"
+                  : "text-[#2F2B3D] hover:text-[#6D28D9] hover:bg-primary-light dark:text-[#C9C4DE] dark:hover:text-white dark:hover:bg-white/10"
+              }`}
+            >
+              <div className="flex items-center gap-3">
+                <MessageSquare
+                  size={15}
+                  className={`${
+                    activePage === "chat"
+                      ? "text-white"
+                      : "text-[#4B465C] dark:text-current dark:opacity-70"
+                  } shrink-0`}
+                />
+                <span>Chat</span>
+              </div>
+            </button>
+          </div>
+
           {/* PARENT ACCORDION: INVOICE */}
           <div className="space-y-0.5">
             <button
@@ -584,6 +639,66 @@ export default function Sidebar({
                         className="mr-3.5 shrink-0"
                       />
                       <span>View</span>
+                    </button>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+
+          {/* PARENT ACCORDION: ROLES & PERMISSIONS */}
+          <div className="space-y-0.5">
+            <button
+              onClick={() => setRolesOpen(!rolesOpen)}
+              className={accordionHeaderClass(rolesOpen)}
+            >
+              <div className="flex items-center gap-3">
+                <Lock
+                  size={15}
+                  className="text-[#4B465C] dark:text-current dark:opacity-70 shrink-0"
+                />
+                <span>Roles & Permissions</span>
+              </div>
+              <span className="text-[#4B465C] dark:text-current dark:opacity-70">
+                {rolesOpen ? (
+                  <ChevronDown size={14} />
+                ) : (
+                  <ChevronRight size={14} />
+                )}
+              </span>
+            </button>
+
+            <AnimatePresence initial={false}>
+              {rolesOpen && (
+                <motion.div
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: "auto", opacity: 1 }}
+                  exit={{ height: 0, opacity: 0 }}
+                  transition={{ duration: 0.2, ease: "easeInOut" }}
+                  className="overflow-hidden"
+                >
+                  <div className="space-y-0.5">
+                    <button
+                      onClick={() => setActivePage("roles-list")}
+                      className={menuItemClass("roles-list")}
+                    >
+                      <Circle
+                        size={7}
+                        strokeWidth={2.5}
+                        className="mr-3.5 shrink-0"
+                      />
+                      <span>Roles</span>
+                    </button>
+                    <button
+                      onClick={() => setActivePage("permissions-list")}
+                      className={menuItemClass("permissions-list")}
+                    >
+                      <Circle
+                        size={7}
+                        strokeWidth={2.5}
+                        className="mr-3.5 shrink-0"
+                      />
+                      <span>Permissions</span>
                     </button>
                   </div>
                 </motion.div>

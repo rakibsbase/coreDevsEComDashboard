@@ -6,3 +6,7 @@ export * from "./data/referrals";
 export * from "./data/invoices";
 export * from "./data/users";
 export * from "./data/customers";
+export * from "./data/roles";
+export * from "./data/emails";
+export * from "./data/chat";
+

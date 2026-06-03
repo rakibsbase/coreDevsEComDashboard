@@ -10,7 +10,12 @@ import {
   InvoiceItem,
   UserRow,
   Customer,
+  RoleItem,
+  PermissionItem,
+  EmailMessage,
   PageId,
+  ChatContact,
+  ChatConversation,
 } from '@/types';
 import {
   initialTransactions,
@@ -23,6 +28,11 @@ import {
   initialInvoices,
   initialUsers,
   initialCustomers,
+  initialRoles,
+  initialPermissions,
+  initialEmails,
+  initialChatContacts,
+  initialChatConversations,
 } from '@/data';
 
 // Helper to save to local storage safely
@@ -59,12 +69,17 @@ export interface AppState {
   users: UserRow[];
   selectedUser: UserRow | null;
   customers: Customer[];
+  roles: RoleItem[];
+  permissions: PermissionItem[];
+  emails: EmailMessage[];
   selectedInvoiceId: string;
   selectedCustomerId: string;
   activePage: PageId;
   darkMode: boolean;
   sidebarOpen: boolean;
   confirmModal: ConfirmModalOptions | null;
+  chatContacts: ChatContact[];
+  chatConversations: ChatConversation[];
 }
 
 const initialState: AppState = {
@@ -82,12 +97,17 @@ const initialState: AppState = {
   users: initialUsers,
   selectedUser: null,
   customers: initialCustomers,
+  roles: initialRoles,
+  permissions: initialPermissions,
+  emails: initialEmails,
   selectedInvoiceId: '4987',
   selectedCustomerId: '#879861',
   activePage: 'dashboard',
   darkMode: false,
   sidebarOpen: false,
   confirmModal: null,
+  chatContacts: initialChatContacts,
+  chatConversations: initialChatConversations,
 };
 
 const appSlice = createSlice({
@@ -181,6 +201,26 @@ const appSlice = createSlice({
     setConfirmModal: (state, action: PayloadAction<ConfirmModalOptions | null>) => {
       state.confirmModal = action.payload;
     },
+    setRoles: (state, action: PayloadAction<RoleItem[]>) => {
+      state.roles = action.payload;
+      setStored('roles', action.payload);
+    },
+    setPermissions: (state, action: PayloadAction<PermissionItem[]>) => {
+      state.permissions = action.payload;
+      setStored('permissions', action.payload);
+    },
+    setEmails: (state, action: PayloadAction<EmailMessage[]>) => {
+      state.emails = action.payload;
+      setStored('emails', action.payload);
+    },
+    setChatContacts: (state, action: PayloadAction<ChatContact[]>) => {
+      state.chatContacts = action.payload;
+      setStored('chatContacts', action.payload);
+    },
+    setChatConversations: (state, action: PayloadAction<ChatConversation[]>) => {
+      state.chatConversations = action.payload;
+      setStored('chatConversations', action.payload);
+    },
   },
 });
 
@@ -206,6 +246,11 @@ export const {
   setDarkMode,
   setSidebarOpen,
   setConfirmModal,
+  setRoles,
+  setPermissions,
+  setEmails,
+  setChatContacts,
+  setChatConversations,
 } = appSlice.actions;
 
 export default appSlice.reducer;
