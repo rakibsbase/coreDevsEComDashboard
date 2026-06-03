@@ -94,10 +94,11 @@
   content: attr(data-placeholder);
   float: left;
   color: var(--text-secondary);
+  opacity: 0.4;
   pointer-events: none;
   height: 0;
   font-size: 0.75rem;
-  font-weight: 600;
+  font-weight: 500;
 }
 
 /* Headings */
